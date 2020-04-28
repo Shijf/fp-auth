@@ -1,6 +1,6 @@
 const Service = require('egg').Service;
 
-class FrpsrService extends Service {
+class FrpsService extends Service {
     /**
      * 用户登录操作信息
      * @param {object} content 
@@ -107,4 +107,4 @@ class FrpsrService extends Service {
 
 }
 
-module.exports = FrpsrService;
+module.exports = FrpsService;
