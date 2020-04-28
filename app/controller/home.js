@@ -8,13 +8,13 @@ class HomeController extends Controller {
     ctx.body = 'hi, egg';
   }
   async handler() {
-    console.log(this.ctx.request.body)
-    console.log("收到了");
-    
+    console.log(this.ctx.request.body);
+    console.log('收到了');
+
     this.ctx.body = {
       reject: false,
-      unchange: true
-    }
+      unchange: true,
+    };
   }
 }
 

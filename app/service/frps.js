@@ -1,9 +1,10 @@
+'use strict';
 const Service = require('egg').Service;
 
 class FrpsService extends Service {
-    /**
+  /**
      * 用户登录操作信息
-     * @param {object} content 
+     * @param {object} content
      * "content": {
         "version": <string>,
         "hostname": <string>,
@@ -17,12 +18,14 @@ class FrpsService extends Service {
         "metas": map<string>string
     }
      */
-    async Login(content) {
-
-    }
-    /**
+  async Login(content) {
+    console.log('=============Login=================');
+    console.log(content);
+    console.log('==============Login================');
+  }
+  /**
      * 创建代理的相关信息
-     * @param {object} content 
+     * @param {object} content
      * "content": {
         "user": {
             "user": <string>,
@@ -50,12 +53,14 @@ class FrpsService extends Service {
         "metas": map<string>string
     }
      */
-    async NewProxy(content) {
-
-    }
-    /**
+  async NewProxy(content) {
+    console.log('============NewProxy==================');
+    console.log(content);
+    console.log('============NewProxy=================');
+  }
+  /**
      * 心跳相关信息
-     * @param {object} content 
+     * @param {object} content
      * "content": {
         "user": {
             "user": <string>,
@@ -66,12 +71,14 @@ class FrpsService extends Service {
         "privilege_key": <string>
     }
      */
-    async Ping(content) {
-
-    }
-    /**
+  async Ping(content) {
+    console.log('==========Ping==================');
+    console.log(content);
+    console.log('==========Ping=====================');
+  }
+  /**
      * 新增 frpc 连接相关信息
-     * @param {object} content 
+     * @param {object} content
      * "content": {
         "user": {
             "user": <string>,
@@ -83,12 +90,14 @@ class FrpsService extends Service {
         "privilege_key": <string>
     }
      */
-    async NewWorkConn(content) {
-
-    }
-    /**
+  async NewWorkConn(content) {
+    console.log('============NewWorkConn==================');
+    console.log(content);
+    console.log('=============NewWorkConn==============');
+  }
+  /**
      * 新增 proxy 连接相关信息 (支持 tcp、stcp、https 和 tcpmux 协议)。
-     * @param {object} content 
+     * @param {object} content
      * "content": {
         "user": {
             "user": <string>,
@@ -100,9 +109,11 @@ class FrpsService extends Service {
         "remote_addr": <string>
     }
      */
-    async NewUserConn(content) {
-
-    }
+  async NewUserConn(content) {
+    console.log('=============NewUserConn===============');
+    console.log(content);
+    console.log('=============NewUserConn============');
+  }
 
 
 }
