@@ -7,4 +7,5 @@ module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
   router.post('/handler', controller.frps.handler);
+  router.resources('users', '/users', controller.user)
 };

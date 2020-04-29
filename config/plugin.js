@@ -6,4 +6,8 @@ module.exports = {
   // static: {
   //   enable: true,
   // }
+  valparams: {
+    enable: true,
+    package: 'egg-valparams'
+  }
 };

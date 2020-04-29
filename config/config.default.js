@@ -25,8 +25,20 @@ module.exports = appInfo => {
 
   config.security = {
     csrf: {
-      enable: false
+      ignore: '/handler' // 过滤frps RPC接口
     },
+  };
+
+  config.valparams = {
+    locale: 'zh-cn',
+    throwError: false
+  };
+
+  config.sequelize = {
+    dialect: 'mysql',
+    host: '127.0.0.1',
+    port: 3306,
+    database: 'fp_auth',
   };
 
   return {
