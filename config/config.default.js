@@ -16,7 +16,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1588070284144_1806';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = ['errorHandler'];
 
   // add your user config here
   const userConfig = {
@@ -25,13 +25,13 @@ module.exports = appInfo => {
 
   config.security = {
     csrf: {
-      ignore: '/handler' // 过滤frps RPC接口
+      ignore: ['/handler', '/users'] // 过滤frps RPC接口
     },
   };
 
   config.valparams = {
     locale: 'zh-cn',
-    throwError: false
+    throwError: true
   };
 
   config.sequelize = {

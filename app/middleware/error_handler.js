@@ -6,8 +6,8 @@ module.exports = (option, app) => {
       await next();
       if (ctx.status === 404 && !ctx.body) {
         ctx.body = {
-          data: '404 错误',
-          msg: 'fial',
+          code: 404,
+          msg: '404'
         };
       }
     } catch (err) {
@@ -21,20 +21,18 @@ module.exports = (option, app) => {
       ctx.status = status;
       // 从 error 对象上读出各个属性，设置到响应中
       ctx.body = {
-        msg: 'fail',
-        data: error,
+        code: 500,
+        msg: error,
       };
-      console.log('执行力1');
       if (status === 422 && err.message === 'Validation Failed') {
         if (err.errors && Array.isArray(err.errors)) {
           error = err.errors[0].err[0];
         }
         ctx.body = {
-          msg: 'fail',
-          data: error,
+          code: 422,
+          msg: error,
         };
       }
-      console.log('执行力2');
     }
   };
 };
