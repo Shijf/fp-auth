@@ -17,7 +17,6 @@ module.exports = appInfo => {
 
   // add your middleware config here
   config.middleware = ['errorHandler'];
-
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
@@ -25,13 +24,18 @@ module.exports = appInfo => {
 
   config.security = {
     csrf: {
-      ignore: ['/handler', '/users'] // 过滤frps RPC接口
+      ignore: ['/handler', '/register', '/login',  '/passport/local'] // 过滤frps RPC接口
     },
   };
+  
 
   config.valparams = {
     locale: 'zh-cn',
-    throwError: true
+    throwError: false
+  };
+
+  config.jwt = {
+    secret: 'qhdgw@45nchkhjkashdaksh2!#@3nxjdas*_672'
   };
 
   config.sequelize = {
@@ -40,6 +44,10 @@ module.exports = appInfo => {
     port: 3306,
     database: 'fp_auth',
   };
+
+  // config.passportLocal  = {
+
+  // };
 
   return {
     ...config,

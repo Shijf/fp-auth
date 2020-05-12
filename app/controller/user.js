@@ -4,43 +4,85 @@ const Controller = require('egg').Controller;
 
 class UserController extends Controller {
 
+    /**
+     * 验证
+     */
+    async register() {
 
-    getRandomIntInclusive(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
-      }
+        if (await this.validateRegister()) {
 
-    randomString() {
-        const len = this.getRandomIntInclusive(32, 60)
-        var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
-        var maxPos = $chars.length;
-        var str = '';
-        for (let i = 0; i < len; i++) {
-            str += $chars.charAt(Math.floor(Math.random() * maxPos));
+            const user = await this.ctx.service.auth.register(await this.validateRegister());
+            this.ctx.apiSuccess({
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                status: user.status
+            }, 200)
         }
-        return str;
-    }
-
-    async index() {
-        const { ctx } = this;
-        console.log(ctx);
-
-        ctx.body = 123
-    }
-
-    async new() {
 
     }
 
-    async create() {
+    async login() {
+        if (await this.validateLogin()) {
+            const user = await this.ctx.service.auth.login(await this.validateLogin());
+            if (user) {
+                this.ctx.apiSuccess({
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    status: user.status
+                }, 200)
+            }
+        }
+    }
+
+    async validateLogin() {
         const { ctx } = this;
         // 验证参数
-        ctx.validate({
+        const validateRes = ctx.validate({
+            email: {
+                type: 'email',
+                required: true,
+                desc: '邮箱'
+            },
+            password: {
+                type: 'string',
+                required: true,
+                range: {
+                    min: 2,
+                    max: 10
+                },
+                desc: '密码'
+            }
+        })
+       
+
+        if (ctx.paramErrors) {
+            const errmsg = ctx.paramErrors;            
+            ctx.apiFail(errmsg[0].err[0].replace(/\s+/g,""), 422)       
+            return;  
+        }
+
+        return validateRes.ret.body;
+    }
+
+    /**
+     * 注册时参数验证
+     */
+    async validateRegister() {
+
+
+        const { ctx } = this;
+        // 验证参数
+        const validateRes = ctx.validate({
             name: {
                 type: 'string',
                 required: true,
                 desc: '用户名',
+                range: {
+                    min: 2,
+                    max: 10
+                },
                 alias: 'username'
             },
             email: {
@@ -51,6 +93,10 @@ class UserController extends Controller {
             password: {
                 type: 'string',
                 required: true,
+                range: {
+                    min: 2,
+                    max: 10
+                },
                 desc: '密码'
             },
             repassword: {
@@ -61,32 +107,36 @@ class UserController extends Controller {
         }, {
             equals: [['password', 'repassword']]
         })
-        // 生成salt
-        // 生成随机的16个随机数
-        const salt = this.randomString()
-        console.log(salt);
-        
-        // 存库
+        if (ctx.paramErrors) {
+            const errmsg = ctx.paramErrors;            
+            ctx.apiFail(errmsg[0].err[0].replace(/\s+/g,""), 422)       
+            return;  
+        }
 
-        // 登录
+        let { email, name } = validateRes.ret.body;
+        // 检查库里是否有该用户
+        let isExitentName = await ctx.model.User.findOne({
+            raw: true,
+            where: {
+                name
+            }
+        })
+        if (isExitentName) {
+            ctx.apiFail(`${name} 已注册过，请直接登录`, 422);
+            return;
+        }
 
-        return ctx.body = 123
-    }
-
-    async show() {
-
-    }
-
-    async edit() {
-
-    }
-
-    async update() {
-
-    }
-
-    async destroy() {
-
+        let isExitentEmail = await ctx.model.User.findOne({
+            raw: true,
+            where: {
+                email
+            }
+        })
+        if (isExitentEmail) {
+            ctx.apiFail(`${email} 已注册过，请直接登录`, 422);
+            return;
+        }
+        return validateRes.ret.body;
     }
 
 }
