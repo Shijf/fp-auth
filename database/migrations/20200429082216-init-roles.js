@@ -7,11 +7,11 @@ module.exports = {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
       name: STRING(30),
       created_at: DATE,
-      updated_at: DATE
-    })
+      updated_at: DATE,
+    });
   },
 
-  down: async (queryInterface, Sequelize) => {  
+  down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('roles');
-  }
+  },
 };

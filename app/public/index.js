@@ -1,3 +1,4 @@
-let a = 5
+// eslint-disable-next-line strict
+const a = 5;
 
-console.log(a)
+console.log(a);

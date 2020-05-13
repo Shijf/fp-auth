@@ -8,5 +8,7 @@ module.exports = app => {
   router.get('/', controller.home.index);
   router.post('/handler', controller.frps.handler);
   router.post('/login', controller.user.login);
+  router.post('/logout', controller.user.logout);
+  router.post('/logoutall', controller.user.logoutall);
   router.post('/register', controller.user.register);
 };

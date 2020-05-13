@@ -16,7 +16,10 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1588070284144_1806';
 
   // add your middleware config here
-  config.middleware = ['errorHandler'];
+  config.middleware = [ 'errorHandler', 'auth' ];
+  config.auth = {
+    ignore: [ '/login', '/register' ],
+  };
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
@@ -24,18 +27,18 @@ module.exports = appInfo => {
 
   config.security = {
     csrf: {
-      ignore: ['/handler', '/register', '/login',  '/passport/local'] // 过滤frps RPC接口
+      match: [ ], // 过滤frps RPC接口
     },
   };
-  
+
 
   config.valparams = {
     locale: 'zh-cn',
-    throwError: false
+    throwError: false,
   };
 
   config.jwt = {
-    secret: 'qhdgw@45nchkhjkashdaksh2!#@3nxjdas*_672'
+    secret: 'qhdgw@45nchkhjkashdaksh2!#@3nxjdas*_672',
   };
 
   config.sequelize = {
@@ -43,6 +46,17 @@ module.exports = appInfo => {
     host: '127.0.0.1',
     port: 3306,
     database: 'fp_auth',
+    password: 'root',
+  };
+
+  // redis存储
+  config.redis = {
+    client: {
+      port: 6379, // Redis port
+      host: '127.0.0.1', // Redis host
+      password: '',
+      db: 2,
+    },
   };
 
   // config.passportLocal  = {

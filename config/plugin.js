@@ -8,7 +8,7 @@ module.exports = {
   // }
   valparams: {
     enable: true,
-    package: 'egg-valparams'
+    package: 'egg-valparams',
   },
 
   sequelize: {
@@ -17,7 +17,12 @@ module.exports = {
   },
   jwt: {
     enable: true,
-    package: "egg-jwt"
+    package: 'egg-jwt',
+  },
+
+  redis: {
+    enable: true,
+    package: 'egg-redis',
   },
   passport: {
     enable: true,
@@ -27,5 +32,5 @@ module.exports = {
   passportLocal: {
     enable: true,
     package: 'egg-passport-local',
-  }
+  },
 };

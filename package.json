@@ -11,6 +11,7 @@
     "egg-jwt": "^3.1.7",
     "egg-passport": "^2.1.1",
     "egg-passport-local": "^1.2.1",
+    "egg-redis": "^2.4.0",
     "egg-scripts": "^2.11.0",
     "egg-sequelize": "^5.2.1",
     "egg-valparams": "^1.4.2",
@@ -31,6 +32,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
+    "migrate": "npx sequelize db:migrate",
     "start": "egg-scripts start --daemon --title=egg-server-example",
     "stop": "egg-scripts stop --title=egg-server-example",
     "dev": "egg-bin dev",
