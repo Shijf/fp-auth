@@ -24,13 +24,8 @@ module.exports = {
     enable: true,
     package: 'egg-redis',
   },
-  passport: {
+  cors: {
     enable: true,
-    package: 'egg-passport',
-  },
-
-  passportLocal: {
-    enable: true,
-    package: 'egg-passport-local',
-  },
+    package: 'egg-cors',
+  }
 };

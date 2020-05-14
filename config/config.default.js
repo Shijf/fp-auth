@@ -16,9 +16,9 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1588070284144_1806';
 
   // add your middleware config here
-  config.middleware = [ 'errorHandler', 'auth' ];
+  config.middleware = ['errorHandler', 'auth'];
   config.auth = {
-    ignore: [ '/login', '/register' ],
+    ignore: ['/login', '/register'],
   };
   // add your user config here
   const userConfig = {
@@ -27,10 +27,15 @@ module.exports = appInfo => {
 
   config.security = {
     csrf: {
-      match: [ ], // 过滤frps RPC接口
+      enable: false
     },
+    domainWhiteList: [ '*' ]
   };
 
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
+  };
 
   config.valparams = {
     locale: 'zh-cn',
